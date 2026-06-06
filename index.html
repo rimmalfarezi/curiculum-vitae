@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>RPG Community Hub</title>
+
+<style>
+:root{
+    --primary:#4f8cff;
+    --secondary:#00d4ff;
+    --bg:#070b16;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:system-ui,sans-serif;
+}
+
+body{
+    min-height:100vh;
+    overflow:hidden;
+    background:
+        radial-gradient(circle at top,#101b3a,#070b16 60%);
+    color:white;
+}
+
+#particles{
+    position:fixed;
+    inset:0;
+    z-index:0;
+}
+
+.container{
+    position:relative;
+    z-index:2;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.card{
+    width:100%;
+    max-width:450px;
+    backdrop-filter:blur(12px);
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:24px;
+    padding:30px;
+    text-align:center;
+    box-shadow:
+        0 0 40px rgba(0,0,0,.4),
+        0 0 40px rgba(79,140,255,.15);
+}
+
+.avatar{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    object-fit:cover;
+    border:3px solid var(--primary);
+    box-shadow:
+        0 0 20px var(--primary),
+        0 0 50px var(--primary);
+    animation:pulse 3s infinite;
+}
+
+@keyframes pulse{
+    0%,100%{
+        box-shadow:
+            0 0 20px var(--primary),
+            0 0 50px var(--primary);
+    }
+    50%{
+        box-shadow:
+            0 0 40px var(--secondary),
+            0 0 80px var(--secondary);
+    }
+}
+
+h1{
+    margin-top:15px;
+    font-size:2rem;
+}
+
+.subtitle{
+    opacity:.8;
+    margin-top:6px;
+    margin-bottom:25px;
+}
+
+.links{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.link{
+    text-decoration:none;
+    color:white;
+    padding:14px;
+    border-radius:14px;
+    background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.1);
+
+    transition:.25s;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+}
+
+.link:hover{
+    transform:translateY(-4px);
+    border-color:var(--primary);
+    box-shadow:0 0 25px var(--primary);
+}
+
+.footer{
+    margin-top:20px;
+    opacity:.6;
+    font-size:.8rem;
+}
+
+@media(max-width:500px){
+    .card{
+        padding:24px;
+    }
+
+    h1{
+        font-size:1.6rem;
+    }
+
+    .avatar{
+        width:100px;
+        height:100px;
+    }
+}
+</style>
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+
+<div class="container">
+    <div class="card">
+
+        <img id="avatar" class="avatar">
+
+        <h1 id="title"></h1>
+        <p id="subtitle" class="subtitle"></p>
+
+        <div id="links" class="links"></div>
+
+        <div class="footer">
+            RPG Community Hub
+        </div>
+
+    </div>
+</div>
+
+<script>
+/* =========================
+   CONFIG
+========================= */
+
+const CONFIG = {
+
+    name: "Sigma Guild",
+
+    subtitle:
+    "Tempat Berkumpul Para Final Boss",
+
+    avatar:
+    "https://i.imgur.com/4Z7Dz2F.jpeg",
+
+    colors:{
+        primary:"#4f8cff",
+        secondary:"#00d4ff",
+        background:"#070b16"
+    },
+
+    particles:120,
+
+    links:[
+        {
+            icon:"🎮",
+            name:"Discord",
+            url:"https://discord.gg/"
+        },
+
+        {
+            icon:"📱",
+            name:"WhatsApp",
+            url:"https://chat.whatsapp.com/"
+        },
+
+        {
+            icon:"🎵",
+            name:"TikTok",
+            url:"https://tiktok.com/"
+        },
+
+        {
+            icon:"▶️",
+            name:"YouTube",
+            url:"https://youtube.com/"
+        }
+    ]
+};
+
+/* =========================
+   APPLY CONFIG
+========================= */
+
+document.documentElement.style.setProperty(
+'--primary',
+CONFIG.colors.primary
+);
+
+document.documentElement.style.setProperty(
+'--secondary',
+CONFIG.colors.secondary
+);
+
+document.documentElement.style.setProperty(
+'--bg',
+CONFIG.colors.background
+);
+
+document.getElementById("title").textContent =
+CONFIG.name;
+
+document.getElementById("subtitle").textContent =
+CONFIG.subtitle;
+
+document.getElementById("avatar").src =
+CONFIG.avatar;
+
+const linksContainer =
+document.getElementById("links");
+
+CONFIG.links.forEach(link=>{
+
+    const a =
+    document.createElement("a");
+
+    a.className="link";
+    a.href=link.url;
+    a.target="_blank";
+
+    a.innerHTML=
+    `${link.icon} ${link.name}`;
+
+    linksContainer.appendChild(a);
+});
+
+/* =========================
+   PARTICLES
+========================= */
+
+const canvas =
+document.getElementById("particles");
+
+const ctx =
+canvas.getContext("2d");
+
+let particles=[];
+
+function resize(){
+    canvas.width=innerWidth;
+    canvas.height=innerHeight;
+}
+
+resize();
+addEventListener("resize",resize);
+
+for(let i=0;i<CONFIG.particles;i++){
+
+    particles.push({
+        x:Math.random()*canvas.width,
+        y:Math.random()*canvas.height,
+        r:Math.random()*2+1,
+        dx:(Math.random()-.5)*0.4,
+        dy:(Math.random()-.5)*0.4
+    });
+}
+
+function animate(){
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+    particles.forEach(p=>{
+
+        p.x+=p.dx;
+        p.y+=p.dy;
+
+        if(p.x<0||p.x>canvas.width)
+            p.dx*=-1;
+
+        if(p.y<0||p.y>canvas.height)
+            p.dy*=-1;
+
+        ctx.beginPath();
+
+        ctx.arc(
+            p.x,
+            p.y,
+            p.r,
+            0,
+            Math.PI*2
+        );
+
+        ctx.fillStyle=
+        "rgba(255,255,255,.7)";
+
+        ctx.fill();
+    });
+
+    requestAnimationFrame(
+        animate
+    );
+}
+
+animate();
+</script>
+
+</body>
+  </html>
