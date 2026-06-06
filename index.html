@@ -2,338 +2,196 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>RPG Community Hub</title>
-
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Tempat Kumpul Sigma</title>
 <style>
 :root{
-    --primary:#4f8cff;
-    --secondary:#00d4ff;
-    --bg:#070b16;
+--gold:#d9b26b;
+--blue:#6b9dff;
+--wood:#6e4a2f;
 }
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:system-ui,sans-serif;
-}
-
+*{margin:0;padding:0;box-sizing:border-box}
 body{
-    min-height:100vh;
-    overflow:hidden;
-    background:
-        radial-gradient(circle at top,#101b3a,#070b16 60%);
-    color:white;
+font-family:system-ui,sans-serif;
+color:#fff;
+overflow-x:hidden;
+background:#1d130d;
 }
-
-#particles{
-    position:fixed;
-    inset:0;
-    z-index:0;
+body::before{
+content:"";
+position:fixed;inset:0;
+background:
+radial-gradient(circle at top,#f7d59a55,transparent 40%),
+linear-gradient(180deg,#7a5533,#2d1d13 60%,#120c08);
+z-index:-3;
 }
-
-.container{
-    position:relative;
-    z-index:2;
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:20px;
+#particles{position:fixed;inset:0;z-index:-1}
+.hero{
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:20px;
 }
-
-.card{
-    width:100%;
-    max-width:450px;
-    backdrop-filter:blur(12px);
-    background:rgba(255,255,255,.05);
-    border:1px solid rgba(255,255,255,.08);
-    border-radius:24px;
-    padding:30px;
-    text-align:center;
-    box-shadow:
-        0 0 40px rgba(0,0,0,.4),
-        0 0 40px rgba(79,140,255,.15);
+.panel{
+width:min(1100px,100%);
+background:rgba(255,255,255,.08);
+backdrop-filter:blur(10px);
+border:1px solid rgba(255,255,255,.15);
+border-radius:30px;
+padding:30px;
+box-shadow:0 20px 60px rgba(0,0,0,.4);
 }
-
+.header{
+display:grid;
+grid-template-columns:220px 1fr;
+gap:30px;
+align-items:center;
+}
 .avatar{
-    width:120px;
-    height:120px;
-    border-radius:50%;
-    object-fit:cover;
-    border:3px solid var(--primary);
-    box-shadow:
-        0 0 20px var(--primary),
-        0 0 50px var(--primary);
-    animation:pulse 3s infinite;
+width:220px;height:220px;
+border-radius:25px;
+object-fit:cover;
+border:4px solid var(--gold);
+box-shadow:0 0 40px rgba(217,178,107,.6);
 }
-
-@keyframes pulse{
-    0%,100%{
-        box-shadow:
-            0 0 20px var(--primary),
-            0 0 50px var(--primary);
-    }
-    50%{
-        box-shadow:
-            0 0 40px var(--secondary),
-            0 0 80px var(--secondary);
-    }
+.guild{
+display:inline-block;
+padding:8px 16px;
+background:linear-gradient(90deg,var(--gold),#f4d79b);
+color:#2d1d13;
+border-radius:999px;
+font-weight:700;
 }
-
 h1{
-    margin-top:15px;
-    font-size:2rem;
+font-size:clamp(2.5rem,6vw,5rem);
+margin:10px 0;
 }
-
-.subtitle{
-    opacity:.8;
-    margin-top:6px;
-    margin-bottom:25px;
+.desc{
+opacity:.9;
+line-height:1.7;
+max-width:700px;
 }
-
-.links{
-    display:flex;
-    flex-direction:column;
-    gap:12px;
+.questboard{
+margin-top:30px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:16px;
 }
-
-.link{
-    text-decoration:none;
-    color:white;
-    padding:14px;
-    border-radius:14px;
-    background:rgba(255,255,255,.06);
-    border:1px solid rgba(255,255,255,.1);
-
-    transition:.25s;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:10px;
+.quest{
+background:linear-gradient(180deg,#8c623d,#6e4a2f);
+padding:18px;
+border-radius:18px;
+text-decoration:none;
+color:#fff;
+font-weight:700;
+text-align:center;
+transition:.25s;
+border:1px solid rgba(255,255,255,.15);
 }
-
-.link:hover{
-    transform:translateY(-4px);
-    border-color:var(--primary);
-    box-shadow:0 0 25px var(--primary);
+.quest:hover{
+transform:translateY(-6px);
+box-shadow:0 0 30px rgba(217,178,107,.4);
 }
-
+.stats{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:15px;
+margin-top:25px;
+}
+.box{
+background:rgba(255,255,255,.08);
+padding:18px;
+border-radius:18px;
+text-align:center;
+}
+.box h3{color:#f6d695;margin-bottom:6px}
+.notice{
+margin-top:25px;
+padding:20px;
+border-left:5px solid var(--gold);
+background:rgba(255,255,255,.06);
+border-radius:12px;
+}
 .footer{
-    margin-top:20px;
-    opacity:.6;
-    font-size:.8rem;
+margin-top:25px;
+text-align:center;
+opacity:.8;
 }
-
-@media(max-width:500px){
-    .card{
-        padding:24px;
-    }
-
-    h1{
-        font-size:1.6rem;
-    }
-
-    .avatar{
-        width:100px;
-        height:100px;
-    }
+@media(max-width:800px){
+.header{grid-template-columns:1fr;text-align:center}
+.avatar{margin:auto}
+.stats{grid-template-columns:repeat(2,1fr)}
 }
 </style>
 </head>
 <body>
-
 <canvas id="particles"></canvas>
 
-<div class="container">
-    <div class="card">
+<div class="hero">
+<div class="panel">
 
-        <img id="avatar" class="avatar">
+<div class="header">
+<img class="avatar" src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?q=80&w=600&auto=format&fit=crop">
 
-        <h1 id="title"></h1>
-        <p id="subtitle" class="subtitle"></p>
+<div>
+<span class="guild">🏰 Anime Tavern Guild</span>
+<h1>Tempat Kumpul Sigma</h1>
+<p class="desc">
+Selamat datang di guild hall para petualang. Tempat untuk mencari teman, mabar, berdiskusi, berbagi proyek, dan membangun komunitas yang aktif. Ambil quest, kumpulkan party, lalu lanjutkan perjalanan.
+</p>
+</div>
+</div>
 
-        <div id="links" class="links"></div>
+<div class="questboard">
+<a class="quest" href="#">🎮 Join Discord</a>
+<a class="quest" href="#">📱 Join WhatsApp</a>
+<a class="quest" href="#">🎵 TikTok Guild</a>
+<a class="quest" href="#">📜 Rules & Roles</a>
+</div>
 
-        <div class="footer">
-            RPG Community Hub
-        </div>
+<div class="stats">
+<div class="box"><h3>Guild Rank</h3>Legendary</div>
+<div class="box"><h3>Region</h3>Indonesia</div>
+<div class="box"><h3>Status</h3>Recruiting</div>
+<div class="box"><h3>Quest</h3>Active</div>
+</div>
 
-    </div>
+<div class="notice">
+<b>Guild Notice Board</b><br>
+Baca rules, ambil role, dan perkenalkan dirimu kepada anggota guild lainnya sebelum memulai petualangan.
+</div>
+
+<div class="footer">
+⚔️ Tempat Kumpul Sigma • Adventure Begins Here
+</div>
+
+</div>
 </div>
 
 <script>
-/* =========================
-   CONFIG
-========================= */
+const c=document.getElementById("particles");
+const ctx=c.getContext("2d");
+function resize(){c.width=innerWidth;c.height=innerHeight}
+resize();addEventListener("resize",resize);
 
-const CONFIG = {
-
-    name: "Sigma Guild",
-
-    subtitle:
-    "Tempat Berkumpul Para Final Boss",
-
-    avatar:
-    "https://i.imgur.com/4Z7Dz2F.jpeg",
-
-    colors:{
-        primary:"#4f8cff",
-        secondary:"#00d4ff",
-        background:"#070b16"
-    },
-
-    particles:120,
-
-    links:[
-        {
-            icon:"🎮",
-            name:"Discord",
-            url:"https://discord.gg/"
-        },
-
-        {
-            icon:"📱",
-            name:"WhatsApp",
-            url:"https://chat.whatsapp.com/"
-        },
-
-        {
-            icon:"🎵",
-            name:"TikTok",
-            url:"https://tiktok.com/"
-        },
-
-        {
-            icon:"▶️",
-            name:"YouTube",
-            url:"https://youtube.com/"
-        }
-    ]
-};
-
-/* =========================
-   APPLY CONFIG
-========================= */
-
-document.documentElement.style.setProperty(
-'--primary',
-CONFIG.colors.primary
-);
-
-document.documentElement.style.setProperty(
-'--secondary',
-CONFIG.colors.secondary
-);
-
-document.documentElement.style.setProperty(
-'--bg',
-CONFIG.colors.background
-);
-
-document.getElementById("title").textContent =
-CONFIG.name;
-
-document.getElementById("subtitle").textContent =
-CONFIG.subtitle;
-
-document.getElementById("avatar").src =
-CONFIG.avatar;
-
-const linksContainer =
-document.getElementById("links");
-
-CONFIG.links.forEach(link=>{
-
-    const a =
-    document.createElement("a");
-
-    a.className="link";
-    a.href=link.url;
-    a.target="_blank";
-
-    a.innerHTML=
-    `${link.icon} ${link.name}`;
-
-    linksContainer.appendChild(a);
-});
-
-/* =========================
-   PARTICLES
-========================= */
-
-const canvas =
-document.getElementById("particles");
-
-const ctx =
-canvas.getContext("2d");
-
-let particles=[];
-
-function resize(){
-    canvas.width=innerWidth;
-    canvas.height=innerHeight;
+const p=[];
+for(let i=0;i<180;i++){
+p.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*2+1,v:Math.random()*0.6+0.2});
 }
-
-resize();
-addEventListener("resize",resize);
-
-for(let i=0;i<CONFIG.particles;i++){
-
-    particles.push({
-        x:Math.random()*canvas.width,
-        y:Math.random()*canvas.height,
-        r:Math.random()*2+1,
-        dx:(Math.random()-.5)*0.4,
-        dy:(Math.random()-.5)*0.4
-    });
+function loop(){
+ctx.clearRect(0,0,c.width,c.height);
+for(const a of p){
+a.y-=a.v;
+if(a.y<0){a.y=innerHeight;a.x=Math.random()*innerWidth;}
+ctx.beginPath();
+ctx.arc(a.x,a.y,a.r,0,6.28);
+ctx.fillStyle="rgba(255,220,150,.65)";
+ctx.fill();
 }
-
-function animate(){
-
-    ctx.clearRect(
-        0,
-        0,
-        canvas.width,
-        canvas.height
-    );
-
-    particles.forEach(p=>{
-
-        p.x+=p.dx;
-        p.y+=p.dy;
-
-        if(p.x<0||p.x>canvas.width)
-            p.dx*=-1;
-
-        if(p.y<0||p.y>canvas.height)
-            p.dy*=-1;
-
-        ctx.beginPath();
-
-        ctx.arc(
-            p.x,
-            p.y,
-            p.r,
-            0,
-            Math.PI*2
-        );
-
-        ctx.fillStyle=
-        "rgba(255,255,255,.7)";
-
-        ctx.fill();
-    });
-
-    requestAnimationFrame(
-        animate
-    );
+requestAnimationFrame(loop);
 }
-
-animate();
+loop();
 </script>
-
 </body>
-  </html>
+</html>
